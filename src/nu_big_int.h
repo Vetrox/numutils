@@ -32,8 +32,8 @@ public:
     BigInt(ssize_t number)
     {
         m_is_negative = number < 0;
-        number &= ~(static_cast<ssize_t>(1) << (sizeof(ssize_t) * 8 - 1));
-        m_uint = UnsignedBigInt(static_cast<size_t>(number));
+        size_t unum = static_cast<size_t>(-number); // FIXME: - -(2^64) = 2^64, which is out of range
+        m_uint = UnsignedBigInt(unum);
     }
 
     BigInt(BigInt const& other)
