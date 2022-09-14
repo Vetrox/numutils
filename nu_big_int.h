@@ -21,6 +21,7 @@ public:
             m_uint = UnsignedBigInt(number.substr(1));
         }
         m_is_negative = false;
+        m_uint = UnsignedBigInt(number);
     }
 
     BigInt(UnsignedBigInt const&& value, bool is_negative)
