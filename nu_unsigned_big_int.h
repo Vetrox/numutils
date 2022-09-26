@@ -1,12 +1,12 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include <iostream>
+#include <string>
+#include <vector>
 
 class UnsignedBigInt {
 public:
-    UnsignedBigInt() {}
+    UnsignedBigInt() { }
 
     UnsignedBigInt(std::vector<uint8_t> const data)
         : m_data(data)
@@ -14,7 +14,8 @@ public:
         ensure_minimum_data_size();
     }
 
-    UnsignedBigInt(std::string_view number) {
+    UnsignedBigInt(std::string_view number)
+    {
         UnsignedBigInt temp;
         for (size_t i = 0; i < number.size(); i++) {
             if (number.at(i) > 9 + '0' || number.at(i) < '0') {
@@ -32,7 +33,7 @@ public:
     UnsignedBigInt(size_t number)
     {
         for (size_t i = 0; i < sizeof(size_t); i++) {
-            m_data.push_back((uint8_t) (number >> i*8));
+            m_data.push_back((uint8_t)(number >> i * 8));
         }
         ensure_minimum_data_size();
     }
@@ -55,22 +56,27 @@ public:
     UnsignedBigInt operator+(UnsignedBigInt const& other) const;
     UnsignedBigInt operator-(UnsignedBigInt const& other) const;
     UnsignedBigInt operator*(UnsignedBigInt const& other) const;
-    void operator+=(UnsignedBigInt const& other) {
+    void operator+=(UnsignedBigInt const& other)
+    {
         *this = *this + other;
     }
-    void operator-=(UnsignedBigInt const& other) {
+    void operator-=(UnsignedBigInt const& other)
+    {
         *this = *this - other;
     }
-    void operator*=(UnsignedBigInt const& other) {
+    void operator*=(UnsignedBigInt const& other)
+    {
         *this = *this * other;
     }
     void divmod(UnsignedBigInt const& other, UnsignedBigInt& out_div, UnsignedBigInt& out_mod) const;
     UnsignedBigInt operator/(UnsignedBigInt const& other) const;
     UnsignedBigInt operator%(UnsignedBigInt const& other) const;
-    void operator/=(UnsignedBigInt const& other) {
+    void operator/=(UnsignedBigInt const& other)
+    {
         *this = *this / other;
     }
-    void operator%=(UnsignedBigInt const& other) {
+    void operator%=(UnsignedBigInt const& other)
+    {
         *this = *this % other;
     }
     void operator<<=(size_t amount);
@@ -83,12 +89,15 @@ public:
     void operator=(UnsignedBigInt const&& other);
 
     std::strong_ordering operator<=>(UnsignedBigInt const& other) const;
-    bool operator==(UnsignedBigInt const& other) const {
+    bool operator==(UnsignedBigInt const& other) const
+    {
         return (*this <=> other) == std::strong_ordering::equal;
     }
-    bool operator!=(UnsignedBigInt const& other) const {
+    bool operator!=(UnsignedBigInt const& other) const
+    {
         return !(*this == other);
     }
+
 private:
     std::vector<uint8_t> m_data {}; // little endian (least significant byte first)
 

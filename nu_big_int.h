@@ -1,13 +1,12 @@
 #pragma once
 #include "nu_unsigned_big_int.h"
 
-
 class BigInt {
 public:
-    BigInt() {}
+    BigInt() { }
     BigInt(std::vector<uint8_t> const data, bool is_negative)
-        : m_uint(data),
-        m_is_negative(is_negative)
+        : m_uint(data)
+        , m_is_negative(is_negative)
     {
     }
 
@@ -25,8 +24,8 @@ public:
     }
 
     BigInt(UnsignedBigInt const&& value, bool is_negative)
-        : m_uint(value),
-        m_is_negative(is_negative)
+        : m_uint(value)
+        , m_is_negative(is_negative)
     {
     }
 
@@ -38,14 +37,14 @@ public:
     }
 
     BigInt(BigInt const& other)
-        : m_uint(other.m_uint),
-        m_is_negative(other.m_is_negative)
+        : m_uint(other.m_uint)
+        , m_is_negative(other.m_is_negative)
     {
     }
 
     BigInt(BigInt const&& other)
-        : m_uint(std::move(other.m_uint)),
-        m_is_negative(other.m_is_negative)
+        : m_uint(std::move(other.m_uint))
+        , m_is_negative(other.m_is_negative)
     {
     }
 
@@ -55,22 +54,27 @@ public:
     BigInt operator+(BigInt const& other) const;
     BigInt operator-(BigInt const& other) const;
     BigInt operator*(BigInt const& other) const;
-    void operator+=(BigInt const& other) {
+    void operator+=(BigInt const& other)
+    {
         *this = *this + other;
     }
-    void operator-=(BigInt const& other) {
+    void operator-=(BigInt const& other)
+    {
         *this = *this - other;
     }
-    void operator*=(BigInt const& other) {
+    void operator*=(BigInt const& other)
+    {
         *this = *this * other;
     }
     void divmod(BigInt const& other, BigInt& out_div, BigInt& out_mod) const;
     BigInt operator/(BigInt const& other) const;
     BigInt operator%(BigInt const& other) const;
-    void operator/=(BigInt const& other) {
+    void operator/=(BigInt const& other)
+    {
         *this = *this / other;
     }
-    void operator%=(BigInt const& other) {
+    void operator%=(BigInt const& other)
+    {
         *this = *this % other;
     }
 
@@ -78,13 +82,16 @@ public:
     void operator=(BigInt const&& other);
 
     std::strong_ordering operator<=>(BigInt const& other) const;
-    bool operator==(BigInt const& other) const {
+    bool operator==(BigInt const& other) const
+    {
         return (*this <=> other) == std::strong_ordering::equal;
     }
-    bool operator!=(BigInt const& other) const {
+    bool operator!=(BigInt const& other) const
+    {
         return !(*this == other);
     }
+
 private:
     UnsignedBigInt m_uint;
-    bool m_is_negative {false};
+    bool m_is_negative { false };
 };
